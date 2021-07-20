@@ -11,7 +11,9 @@ include 'helpers/topicshelper.php'?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Home</title>
+    <title>Q/A</title>
+              <link href="../assets/fap.png" rel="icon">
+
     <? include 'styles/styles.php' ?>
 </head>
 <body class="sb-nav-fixed">
@@ -30,12 +32,24 @@ include 'helpers/topicshelper.php'?>
                 while($rowfeed=$qasingle->fetch_assoc()){?>
 
 
-                    <div class="card bg-dark">
+                    <div class="card"style="background-color:#121212;">
                         <div class="wrapper">
                             <div class="details">
                                 <img alt="initials" src="<? echo getinitials($rowfeed['user_id'])?>" class=" avatarImage profilePic">
 
-                                <h2 class="text-capitalize topic"><? echo getusername($rowfeed['user_id']) ?> <i class="fad fa-chevron-right"></i> <? echo getcategoryname(explode(",",$rowfeed['category_ids'])) ?></h2>
+                                <h5 class="text-capitalize" style="transition: all 0.15s ease-out 0s;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #d3d3d3;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 18px;
+    display: block;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;"><? echo getusername($rowfeed['user_id']) ?> <i class="fad fa-chevron-right"></i> <? echo getcategoryname(explode(",",$rowfeed['category_ids'])) ?></h5>
 
                                 <?if (isset($_SESSION['id'])){if($_SESSION['id'] == $rowfeed['user_id'] || $_SESSION['role']== 1){ ?>
                                     <div class="dropright float-right ml-4">
@@ -53,22 +67,16 @@ include 'helpers/topicshelper.php'?>
 
                             <small class="timeago" style="margin-top:-25px; margin-left:70px;display: block; text-overflow: ellipsis; max-width: 100%; overflow: hidden; white-space: nowrap;"><? echo  timeago($rowfeed['date_created']) ?></small>
 
-                            <div class="title ml-5">
-                                <? echo $rowfeed['title'] ?></div>
-
-                            <div>
-                                <p class="truncate filter-text"><?php echo strip_tags($rowfeed['content']) ?></p>
-                            </div>
+                          <div class="ml-2 mt-2">
+                                     <h4 class="mimi"> <? echo $rowfeed['title'] ?></h4> 
+                                       <p class="truncate filter-text mimipia"><?php echo strip_tags($rowfeed['content']) ?></p>
+                                   </div>
                             <?
                             $comment=mysqli_query($conn,"select count(*) as tcoments from comments where topic_id='".$rowfeed['id']."'");
                             $totalcomments=$comment->fetch_assoc();
                             ?>
-
-
                         </div>
-                                       </div>
-
-
+                    </div>
                 <? }}?>
 
                     <div class="col-lg-12 justify-content-center">
@@ -119,7 +127,9 @@ include 'helpers/topicshelper.php'?>
     <? include 'navs/footer.php' ?>
 
 
-<? include 'styles/scripts.php';
-include 'modals/askmodal.php'?>
+<?
+   include 'modals/askmodal.php';
+   include 'styles/scripts.php';
+   ?>
 </body>
 </html>

@@ -8,18 +8,18 @@ function active($currect_page){
 }
 
 ?>
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark  d-sm-inline-block d-md-none d-lg-none d-xl-none ml-sm-0 ml-lg-0 ml-xl-0 ml-md-0">
+<nav class="sb-topnav navbar navbar-expand d-sm-inline-block d-md-none d-lg-none d-xl-none ml-sm-0 ml-lg-0 ml-xl-0 ml-md-0">
 
-      <button class="btn  d-sm-inline-block d-md-none d-lg-none d-xl-none ml-sm-0 ml-lg-0 ml-xl-0 ml-md-0 btn-link btn-sm order-1 order-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <button class="btn  d-sm-inline-block d-md-none d-lg-none d-xl-none ml-sm-0 ml-lg-0 ml-xl-0 ml-md-0 btn-link btn-sm order-1 order-lg-0" id="sidebarToggle"><i class="fas fa-bars" style="color:yellow;"></i></button>
 
 
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
 
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion" id="sidenavAccordion" style="background-color:#121212; font-size:15px;">
                     <div class="sb-sidenav-menu">
-                        <img alt="KYR Africa" src="https://tribe-s3-production.imgix.net/Eq3DZkAgU5hyDRJB5Okf3?auto=compress,format" id="navlogo">
+                        <img alt="KYR Africa" src="https://kyrafrica.com/assets/logo.png" class="image-fluid" height="50px">
                     </div>
 
                     <div class="sb-sidenav-menu">
@@ -66,7 +66,7 @@ function active($currect_page){
                             <? while($rowtags=$sidetags->fetch_assoc()){ ?>
                             <a class="nav-link" href="topic-QA.php?tid=<? echo $rowtags['id']?>">
                                 <div class="sb-nav-link-icon"><i class="fad fa-folders"></i></div>
-<? echo $rowtags['name'] ?> <span class="ml-1 badge badge-success"><? echo counttopicsfromqa($rowtags['id'])?></span>
+<? echo $rowtags['name'] ?> <span class="ml-1 badge badge-warning"><? echo counttopicsfromqa($rowtags['id'])?></span>
                             </a>
 <?}?>
                         </div>
@@ -75,12 +75,14 @@ function active($currect_page){
 
                     <div class="sb-sidenav-footer">
                         <? if (!isset($_SESSION['id'])){?>
-<div class="text-left ml-sm-auto "><a class="btn btn-block btn-warning" href="login.php">Sign in</a> </div>
+<div class="text-left"><a class="btn btn-block btn-warning" href="login.php">Sign in</a> </div>
      <hr>
-        <div class="text-left ml-sm-auto"><a href="register.php" class="btn btn-block btn-success">Join Forum</a> </div>
+        <div class="text-left"style="margin-top:-15px;"><a href="register.php" class="btn btn-block btn-outline-warning">Join Forum</a> </div>
                         <? }else{?>
-                        <div class="text-left ml-sm-auto "><a class="btn btn-block btn-danger" href="logout.php">Log out</a> </div>
+                        <div class="text-left ml-sm-auto "><a class="btn btn-block btn-outline-warning" href="logout.php">Log out</a> </div>
                         <? }?>
     </div>
+    <br>
+    <br>
                 </nav>
             </div>

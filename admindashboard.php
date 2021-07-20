@@ -76,7 +76,9 @@ include 'helpers/admindashboardhelper.php'
 </div>
 
 
-<? include 'styles/scripts.php';
-include 'modals/askmodal.php'?>
+<?
+   include 'modals/askmodal.php';
+   include 'styles/scripts.php';
+   ?>
 </body>
 </html>

@@ -2,13 +2,24 @@
 if (mysqli_num_rows($comments)>0){
     foreach($com_arr as $row):
         ?>
-        <div class="card bg-dark">
+        <div class="card" style="background-color:#121212;">
             <div class="wrapper">
                 <div class="details">
                     <img alt="initials" src="<? echo getinitials($row['user_id'])?>" class=" avatarImage profilePic">
 
-                    <h6 class=""><a class="text-capitalize text-warning"><? echo getusername($row['user_id']) ?></a><i class="fad fa-chevron-right"></i> added an answer</h6>
-
+                    <h6 class=""  style="transition: all 0.15s ease-out 0s;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #d3d3d3;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 18px;
+    display: block;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;"><a class="text-capitalize text-warning"><? echo getusername($row['user_id']) ?></a><i class="fad fa-chevron-right"></i> added an answer</h6>
                     <?if (isset($_SESSION['id'])){if($_SESSION['id'] == $row['user_id'] || $_SESSION['role']== 1){ ?>
                         <div class="dropright float-right ml-4">
                             <a class="text-white"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,9 +37,10 @@ if (mysqli_num_rows($comments)>0){
 
                 <small class="timeago" style="margin-top:-25px; margin-left:70px;display: block; text-overflow: ellipsis; max-width: 100%; overflow: hidden; white-space: nowrap;"><? echo  timeago($row['date_created']) ?></small>
 
-                <div class="text-justify mt-1">
-                    <p class="truncate filter-text"> <?php echo html_entity_decode($row['comment']) ?></p>
-                </div>
+                <div class="ml-2 mt-2">
+                                   
+                                        <p class="truncate filter-text"> <?php echo html_entity_decode($row['comment']) ?></p>
+                                   </div>
                 <br>
 
 

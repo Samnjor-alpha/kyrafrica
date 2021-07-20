@@ -5,6 +5,10 @@ include '../sessions/session.php';
 if (isset($_SESSION)){
     $qaid=$_GET['qaid'];
     $qauid=$_GET['qauid'];
+    if (isset($_GET['img'])){
+        $img=$_GET['img'];
+        unlink( '../uploads/'. $img.'' );
+    }
     if ($_SESSION['id']==$qauid || $_SESSION['role']==1){
 
     $deleteqa="delete from topics where id=$qaid and user_id='$qauid'";

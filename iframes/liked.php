@@ -1,6 +1,6 @@
-<h2 class="text-center">My Posts</h2>
-<? if (mysqli_num_rows($topic)>0){
-    while($rowfeed=$topic->fetch_assoc()){?>
+<h2 class="text-center">Liked Posts</h2>
+<? if (mysqli_num_rows($likedtopic)>0){
+    while($rowfeed=$likedtopic->fetch_assoc()){?>
 
         <div class="card bg-dark br">
             <div class="details">

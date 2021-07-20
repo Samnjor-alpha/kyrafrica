@@ -2,7 +2,8 @@
 include 'config/config.php';
 include "sessions/session.php";
 include 'helpers/profilehelper.php';
-include 'helpers/topicshelper.php'?>
+include 'helpers/topicshelper.php';
+include 'helpers/likedhelper.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +32,9 @@ include 'helpers/topicshelper.php'?>
                         <a class="nav-link active" data-toggle="tab" href="#posts">Asked Questions</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#liked">Liked Questions</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#upprof">Account Settings</a>
                     </li>
 
@@ -46,6 +50,12 @@ include 'helpers/topicshelper.php'?>
 
 
 
+                        </div>
+                        <div class="tab-pane container fade"  id="liked">
+                            <div class="row mt-mb-15">
+                                <? include 'iframes/liked.php' ?>
+
+                            </div>
                         </div>
                         <div class="tab-pane container fade"  id="upprof">
                             <div class="row mt-mb-15">
@@ -63,7 +73,9 @@ include 'helpers/topicshelper.php'?>
 </div>
 
 
-<? include 'styles/scripts.php';
-include 'modals/askmodal.php'?>
+<?
+   include 'modals/askmodal.php';
+   include 'styles/scripts.php';
+   ?>
 </body>
 </html>

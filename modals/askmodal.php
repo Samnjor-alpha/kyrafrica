@@ -9,18 +9,24 @@ if(isset($_GET['id'])){
 }
 
 ?>
+<style>
+    img{
+        max-width:100%;
+    }
+</style>
 <div class="modal fade" id="ask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Ask you'll be answered</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                <button type="button" class="text-white close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
-                    <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id']:'' ?>" class="form-control">
+                <form id="ask" action="" enctype="multipart/form-data" method="post">
+
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="control-label">Title</label>
@@ -30,7 +36,7 @@ if(isset($_GET['id'])){
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label for="category_ids" class="control-label">Topic</label>
-                            <select name="category_ids[]" id="category_ids"  class="form-control custom-select" required>
+                            <select name="category_ids[]" id="category_ids"  class="form-control" required>
                                 <option value=""></option>
                                 <?php
                                 $tag = $conn->query("SELECT * FROM categories order by name asc");
@@ -41,14 +47,23 @@ if(isset($_GET['id'])){
                             </select>
                         </div>
                     </div>
+                    <div id="blah" class="preview-area"></div>
+
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="control-label">Question</label>
-                            <textarea name="content" class="form-control text-jqte" required><?php echo isset($content) ? $content : '' ?></textarea>
+                            <textarea id="question" name="content" class="form-control text-jqte" required><?php echo isset($content) ? $content : '' ?></textarea>
                         </div>
                     </div>
+
+
                     <div class="row form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="uploadFile"><i class="fas fa-photo-video fa-2x"></i></label>
+                            <input type="file"  name="uploadFile" id="uploadFile" style="display:none" accept=".jpg, .png, .mp4" />
+
+                        </div>
+                        <div class="col-md-6">
                             <button type="submit" class="btn btn-block btn-success" name="addt">Ask</button>
 
                         </div>
@@ -60,10 +75,21 @@ if(isset($_GET['id'])){
     </div>
 </div>
 <script>
-    $('.select2').select2({
-        placeholder:"Please select here",
-        width:"100%"
-    })
-    $('.text-jqte').jqte();
+    var inputLocalFont = document.getElementById("uploadFile");
+    inputLocalFont.addEventListener("change",previewImages,false);
+
+    function previewImages(){
+        var fileList = this.files;
+
+        var anyWindow = window.URL || window.webkitURL;
+
+        for(var i = 0; i < fileList.length; i++){
+            var objectUrl = anyWindow.createObjectURL(fileList[i]);
+            $('.preview-area').append('<img src="' + objectUrl + '" /><br/>');
+            window.URL.revokeObjectURL(fileList[i]);
+        }
+
+
+    }
 
 </script>

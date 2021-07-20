@@ -10,7 +10,8 @@ include 'helpers/topicshelper.php'?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Home</title>
+            <link href="../assets/fap.png" rel="icon">
+    <title>Topics</title>
     <? include 'styles/styles.php' ?>
 </head>
 <body class="sb-nav-fixed">
@@ -20,7 +21,7 @@ include 'helpers/topicshelper.php'?>
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class=" text-center col">
-                    <h3 class="mt-2 text-warning text-capitalize"><? echo gettopicname($_GET['tid']) ?> Q&A Feeds</h3>
+                    <h3 class="mt-2" style="color:#555555;"><? echo gettopicname($_GET['tid']) ?> Q&A</h3>
                 </div>
 
             </div>
@@ -29,12 +30,24 @@ include 'helpers/topicshelper.php'?>
                 while($rowfeed=$tqas->fetch_assoc()){?>
 
 
-                    <div class="card bg-dark">
+                    <div class="card" style="background-color:#121212;">
                         <div class="wrapper">
                             <div class="details">
                                 <img alt="initials" src="<? echo getinitials($rowfeed['user_id'])?>" class=" avatarImage profilePic">
 
-                                <h2 class="text-capitalize topic"><? echo getusername($rowfeed['user_id']) ?> <i class="fad fa-chevron-right"></i> <? echo getcategoryname(explode(",",$rowfeed['category_ids'])) ?></h2>
+                                <h5 class="text-capitalize" style="transition: all 0.15s ease-out 0s;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #d3d3d3;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 18px;
+    display: block;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;"><? echo getusername($rowfeed['user_id']) ?> <i class="fad fa-chevron-right"></i> <? echo getcategoryname(explode(",",$rowfeed['category_ids'])) ?></h5>
 
                                 <?if (isset($_SESSION['id'])){if($_SESSION['id'] == $rowfeed['user_id'] || $_SESSION['role']== 1){ ?>
                                     <div class="dropright float-right ml-4">
@@ -51,13 +64,15 @@ include 'helpers/topicshelper.php'?>
                             </div>
 
                             <small class="timeago" style="margin-top:-25px; margin-left:70px;display: block; text-overflow: ellipsis; max-width: 100%; overflow: hidden; white-space: nowrap;"><? echo  timeago($rowfeed['date_created']) ?></small>
-
-                            <div class="title ml-5">
-                                <? echo $rowfeed['title'] ?></div>
-
-                            <div>
-                                <p class="truncate filter-text"><?php echo strip_tags($rowfeed['content']) ?></p>
-                            </div>
+                                   <div class="ml-2 mt-2">
+                                     <h4 class="mimi"> <? echo $rowfeed['title'] ?></h4> 
+                                       <p class="truncate filter-text mimipia"><?php echo strip_tags($rowfeed['content']) ?></p>
+                                   </div>
+                            <?if (!empty($rowfeed['img'])){ ?>
+                                <div id="media">
+                                    <? echo outputmedia($rowfeed['id']) ?>
+                                </div>
+                            <? }?>
                             <?
                             $comment=mysqli_query($conn,"select count(*) as tcoments from comments where topic_id='".$rowfeed['id']."'");
                             $totalcomments=$comment->fetch_assoc();
@@ -85,10 +100,6 @@ include 'helpers/topicshelper.php'?>
 
             <?php if ($total_no_of_pages>0){ ?>
                 <div class="">
-
-                    <div class="justify-content-center" style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
-                        <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
 
@@ -101,7 +112,9 @@ include 'helpers/topicshelper.php'?>
     <? include 'navs/footer.php' ?>
 </div>
 
-<? include 'styles/scripts.php';
-include 'modals/askmodal.php'?>
+<?
+   include 'modals/askmodal.php';
+   include 'styles/scripts.php';
+   ?>
 </body>
 </html>
